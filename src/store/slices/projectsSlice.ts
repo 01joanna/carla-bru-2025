@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Project } from "@/types/Project";
 
 interface ProjectsState {
-    items: Project[];
+    projects: Project[];
     loading: boolean;
 }
 
 const initialState: ProjectsState = {
-    items: [],
+    projects: [],
     loading: false,
 };
 
@@ -16,10 +16,22 @@ const projectsSlice = createSlice({
     initialState,
     reducers: {
         setProjects(state, action: PayloadAction<Project[]>) {
-            state.items = action.payload;
+            state.projects = action.payload;
+        },
+        addProject(state, action: PayloadAction<Project>) {
+            state.projects.push(action.payload);
+        },
+        updateProject(state, action: PayloadAction<Project>) {
+            const index = state.projects.findIndex(project => project.id === action.payload.id);
+            if (index !== -1) {
+                state.projects[index] = action.payload;
+            }
+        },
+        deleteProject(state, action: PayloadAction<string>) {
+            state.projects = state.projects.filter(project => project.id !== action.payload);
         },
     },
 });
 
-export const { setProjects } = projectsSlice.actions;
+export const { setProjects, addProject, updateProject, deleteProject } = projectsSlice.actions;
 export default projectsSlice.reducer;
