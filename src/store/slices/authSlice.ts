@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Admin } from "../../types/Admin";
 
-interface AuthState {
-    user: any | null;
-    loading: boolean;
-}
-
-const initialState: AuthState = {
-    user: null,
-    loading: true,
+const initialState: Admin = {
+    uid: null,
+    email: null,
+    role: null
 };
 
 const authSlice = createSlice({
-    name: "auth",
-    initialState,
+    name: "auth", initialState,
     reducers: {
-        setUser(state, action: PayloadAction<any | null>) {
-            state.user = action.payload;
-            state.loading = false;
+        setAdmin(state, action: PayloadAction<Admin>) {
+            return { ...state, ...action.payload };
         },
+        clearAdmin(state) {
+            state.uid = null;
+            state.email = null;
+            state.role = null;
+        }
     },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setAdmin, clearAdmin } = authSlice.actions;
 export default authSlice.reducer;
