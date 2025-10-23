@@ -1,5 +1,5 @@
 
-export interface Proyecto {
+export interface Project {
     id: string;
     titulo: string;
     año: string;
