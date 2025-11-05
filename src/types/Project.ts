@@ -10,7 +10,7 @@ export interface Project {
     video?: string;
     descripcion?: string;
     imagenes: string[];
-    categoria: string[];
+    categoria: string;
     createdAt?: string;
     updatedAt?: string;
     selected?: boolean;
