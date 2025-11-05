@@ -9,26 +9,25 @@ import { Timestamp } from "firebase/firestore";
 export const fetchProjects = () => async (dispatch: AppDispatch) => {
     try {
         const docs = await getDocs(collection(db, "projects"));
-        docs.docs.forEach(doc => {
-            console.log("Fetched project doc:", doc.id, doc.data());
-        }
-        );
+
         const data: Project[] = docs.docs.map(doc => {
             const d = doc.data();
 
             return {
                 id: doc.id,
                 titulo: d.titulo || "",
-                año: d.año || 0,
-                direccion: d.direccion || "",
-                produccion: d.produccion || "",
+                año: d.año || "",
+                artista: d.artista || "",
+                direccion: Array.isArray(d.direccion) ? d.direccion : [],
+                produccion: Array.isArray(d.produccion) ? d.produccion : [],
+                direccionArte: Array.isArray(d.direccionArte) ? d.direccionArte : [],
+                ayudanteArte: Array.isArray(d.ayudanteArte) ? d.ayudanteArte : [],
                 video: d.video || "",
-                categoria: d.categoria || "",
-                imagenes: Array.isArray(d.imagenes)
-                    ? d.imagenes.map((url: string) => url.trim())
-                    : [],
+                categoria: Array.isArray(d.categoria) ? d.categoria : [],
+                imagenes: Array.isArray(d.imagenes) ? d.imagenes.map((url: string) => url.trim()) : [],
+                selected: d.selected ?? false,
                 createdAt: d.createdAt instanceof Timestamp ? d.createdAt.toDate().toISOString() : d.createdAt,
-                updatedAt: d.actualizado instanceof Timestamp ? d.actualizado.toDate().toISOString() : d.actualizado,
+                updatedAt: d.updatedAt instanceof Timestamp ? d.updatedAt.toDate().toISOString() : d.updatedAt,
             };
         });
 
@@ -37,6 +36,7 @@ export const fetchProjects = () => async (dispatch: AppDispatch) => {
         console.error("Error fetching projects:", error);
     }
 };
+
 
 
 export async function createProject(project: Omit<Project, "id">) {

@@ -18,7 +18,7 @@ export default function Header() {
                 <ul className="flex justify-around uppercase gap-3 font-plex items-center">
                     <Link href="/" className="text-xs w-[400px] cursor-pointer">Carla Bru</Link>
                     <Link href="/projects" className="navlist opacity-40">Projects</Link>
-                    <Link href="/index" className="navlist">Index</Link>
+                    <Link href="/archive" className="navlist">Archive</Link>
                     <Link href="/information" className="navlist">Information + Contact</Link>
                     {
                         uid && (

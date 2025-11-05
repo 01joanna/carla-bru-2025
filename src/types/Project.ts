@@ -13,4 +13,5 @@ export interface Project {
     categoria: string[];
     createdAt?: string;
     updatedAt?: string;
+    selected?: boolean;
 }

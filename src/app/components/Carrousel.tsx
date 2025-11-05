@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -7,7 +8,11 @@ import { RootState, AppDispatch } from "@/store";
 import { Project } from "@/types/Project";
 import Card from "./Card";
 
-export default function Carrousel() {
+interface CarrouselProps {
+    setHoveredProject: (project: Project | null) => void;
+}
+
+export default function Carrousel({ setHoveredProject }: CarrouselProps) {
     const dispatch = useDispatch<AppDispatch>();
     const { projects } = useSelector((state: RootState) => state.projects);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -44,21 +49,26 @@ export default function Carrousel() {
         scrollRef.current.scrollLeft = scrollLeft - walk;
     };
 
-
     return (
-        <section className="w-screen h-[30vh] overflow-y-hidden overflow-x-scroll z-20 relative top-0 left-0 mx-8 mt-auto pt-40">
-                <div
-                    ref={scrollRef}
-                    onMouseDown={handleMouseDown}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseUp={handleMouseUp}
-                    onMouseMove={handleMouseMove}
-                    className="flex overflow-x-scroll scrollbar-hide cursor-grab select-none snap-x snap-mandatory"
-                >
-                    {projects.map((project: Project) => (
-                        <Card key={project.id} project={project} />
+        <section className="w-screen h-[30vh] overflow-y-hidden overflow-x-scroll z-20 relative top-0 left-0 mt-auto pt-40">
+            <div
+                ref={scrollRef}
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+                className="flex overflow-x-scroll scrollbar-hide cursor-grab select-none snap-x snap-mandatory justify-center items-center"
+            >
+                {projects
+                    .filter(project => project.selected && project.video)
+                    .map(project => (
+                        <Card
+                            key={project.id}
+                            project={project}
+                            onMouseEnter={() => setHoveredProject(project)}
+                        />
                     ))}
-                </div>
+            </div>
         </section>
     );
 }
