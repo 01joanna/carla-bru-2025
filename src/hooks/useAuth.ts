@@ -11,7 +11,7 @@ export default function useAuth() {
     useEffect(() => {
         const unsubscribe = subscribeToAuthChanges((user, isAdmin) => {
             if (user && isAdmin) {
-                dispatch(setAdmin({ uid: user.uid, email: user.email, role: "admin" }));
+                dispatch(setAdmin({ uid: user.uid, email: user.email, role: "admin", isAdmin: true }));
             } else {
                 dispatch(clearAdmin());
             }

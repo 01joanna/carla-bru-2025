@@ -23,7 +23,8 @@ export default function Login() {
             dispatch(setAdmin({
                 uid: user.uid,
                 email: user.email,
-                role: "admin"
+                role: "admin",
+                isAdmin: true
             }))
             console.log("Login successful:", user);
             router.replace("/")
