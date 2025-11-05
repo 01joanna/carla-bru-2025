@@ -1,11 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
-import projectsReducer from './slices/projectsSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+import adminReducer from "@/store/slices/authSlice";
+import projectsReducer from "./slices/projectsSlice";
+import { auth } from "@/lib/firebase";
 
 export const store = configureStore({
     reducer: {
-        admin: authReducer,
-    },
+        admin: adminReducer,
+        projects: projectsReducer,
+    }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

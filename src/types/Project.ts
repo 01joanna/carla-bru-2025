@@ -1,12 +1,15 @@
-
 export interface Project {
-    id: string;
+    id?: string;
     titulo: string;
-    año: string;
-    direccion: string;
-    produccion?: string;
-    arte?: string;
-    categoria: string;
+    año: number;
+    artista: string;
+    direccion: string[];
+    produccion: string[]; 
+    direccionArte: string[];
+    ayudanteArte: string[]; 
     video?: string;
+    descripcion?: string;
     imagenes: string[];
+    categoria: string[];
+    createdAt?: string;
 }

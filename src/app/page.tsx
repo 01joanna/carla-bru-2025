@@ -1,11 +1,12 @@
 "use client"
 
+import Carrousel from "./components/Carrousel";
 
 export default function HomePage() {
 
   return (
     <main>
-<section className="relative w-screen h-screen overflow-hidden z-10">
+      <section className="relative w-screen h-screen overflow-hidden z-10 flex flex-col min-h-screen">
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-[2.9] lg:scale-150">
             <iframe
@@ -17,6 +18,7 @@ export default function HomePage() {
             ></iframe>
           </div>
         </div>
+        <Carrousel />
       </section>
     </main>
   );
