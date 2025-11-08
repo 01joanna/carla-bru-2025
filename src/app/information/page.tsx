@@ -47,8 +47,8 @@ export default function Information() {
     if (loading) return <p>Cargando...</p>;
 
     return (
-        <section className="w-screen h-screen mx-10 flex justify-around text-[12px] items-center font-plex">
-            <div className="w-1/3 text-justify whitespace-pre-line">
+        <section className="w-screen h-screen md:mx-10 mx-0 md:px-0 px-12 md:mt-0 mt-40 flex md:flex-row flex-col justify-around md:text-[12px] text-lg md:items-center items-start font-plex md:gap-0 gap-10 pb-20">
+            <div className="md:w-1/3 w-full md:text-justify text-start whitespace-pre-line">
                 {editMode ? (
                     <textarea
                         value={info.descripcion}
@@ -60,7 +60,7 @@ export default function Information() {
                 )}
             </div>
 
-            <div className="w-1/3 flex flex-col gap-4">
+            <div className="md:w-1/3 w-full flex flex-col gap-4 md:pb-0 pb-20">
                 <div>
                     <p className="font-semibold uppercase">Instagram</p>
                     {editMode ? (
@@ -82,7 +82,7 @@ export default function Information() {
                     )}
                 </div>
 
-                <div>
+                <div className="">
                     <p className="font-semibold uppercase">Vimeo</p>
                     {editMode ? (
                         <input

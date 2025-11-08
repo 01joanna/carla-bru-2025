@@ -61,9 +61,9 @@ export default function ProjectIndex() {
 
 
     return (
-        <section className="mt-20 px-20 w-full font-plex">
+        <section className="mt-20 px-20 w-full font-plex pb-20">
             <div className="flex justify-between items-center mb-6 w-full overflow-x-auto">
-                <h1 className="text-xs uppercase tracking-widest text-gray-400">
+                <h1 className="md:text-xs text-lg uppercase tracking-widest text-gray-400">
                     Proyectos
                 </h1>
                 {uid && (
@@ -76,7 +76,7 @@ export default function ProjectIndex() {
                 )}
             </div>
 
-            <div className="flex gap-8 justify-between">
+            <div className="w-screen flex flex-col md:flex-row gap-8">
                 <div className="w-4/6 space-y-12">
                     <AnimatePresence>
                         {selectedProject ? (
@@ -201,7 +201,7 @@ export default function ProjectIndex() {
                     </AnimatePresence>
                 </div>
 
-                <div className="w-2/6">
+                <div className="md:w-2/6 w-full">
                     <ul className="space-y-4 text-xs uppercase">
                         {Object.entries(categoriasCount).map(([categoria, count]) => {
                             const proyectosEnCategoria = projects?.filter(
@@ -210,7 +210,7 @@ export default function ProjectIndex() {
                             return (
                                 <li key={categoria} className="cursor-pointer">
                                     <p
-                                        className="text-sm"
+                                        className="md:text-sm text-lg"
                                         onClick={() => {
                                             setSelectedCategoria(categoria);
                                             setSelectedProject(null);
@@ -218,7 +218,7 @@ export default function ProjectIndex() {
                                     >
                                         {categoria} ({count})
                                     </p>
-                                    <ul className="mt-1 space-y-0.5 text-xs text-gray-500">
+                                    <ul className="mt-1 space-y-0.5 md:text-xs text-lg text-gray-500">
                                         {proyectosEnCategoria?.map((p) => (
                                             <li
                                                 key={p.id}
