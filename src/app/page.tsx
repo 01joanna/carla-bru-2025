@@ -25,18 +25,34 @@ export default function HomePage() {
       <section className="relative w-screen h-screen overflow-hidden z-10 flex flex-col min-h-screen">
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-[2.9] lg:scale-150">
-            <iframe
-              src={hoveredProject ? getEmbedUrl(hoveredProject.video || "") : "https://player.vimeo.com/video/882106664?background=1&autoplay=1&loop=1&muted=1"}
-              frameBorder="0"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-              className="w-screen h-screen pointer-events-none transition-opacity duration-500"
-            ></iframe>
-
+            {hoveredProject && hoveredProject.video ? (
+              <iframe
+                src={getEmbedUrl(hoveredProject.video)}
+                frameBorder="0"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                className="w-screen h-screen pointer-events-none transition-opacity duration-500"
+              ></iframe>
+            ) : hoveredProject && hoveredProject.imagenes?.[0] ? (
+              <img
+                src={hoveredProject.imagenes[0].trim()}
+                alt={hoveredProject.titulo}
+                className="w-screen h-screen object-cover pointer-events-none transition-opacity duration-500"
+              />
+            ) : (
+              <iframe
+                src="https://player.vimeo.com/video/882106664?background=1&autoplay=1&loop=1&muted=1"
+                frameBorder="0"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                className="w-screen h-screen pointer-events-none transition-opacity duration-500"
+              ></iframe>
+            )}
           </div>
         </div>
         <Carrousel setHoveredProject={setHoveredProject} />
       </section>
     </main>
+
   );
 }

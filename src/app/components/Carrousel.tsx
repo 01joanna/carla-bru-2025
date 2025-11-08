@@ -50,38 +50,40 @@ export default function Carrousel({ setHoveredProject }: CarrouselProps) {
     };
 
     return (
-        <section className="md:flex hidden ml-20 mb-3 w-screen h-auto md:h-[30vh] overflow-y-auto md:overflow-y-hidden overflow-x-scroll md:overflow-x-scroll z-20 relative top-0 left-0 mt-auto">
-            <div
-                ref={scrollRef}
-                onMouseDown={handleMouseDown}
-                onMouseLeave={handleMouseLeave}
-                onMouseUp={handleMouseUp}
-                onMouseMove={handleMouseMove}
-                className=" flex flex-col md:flex-row md:overflow-x-scroll overflow-y-auto md:overflow-y-hiddenscrollbar-hide cursor-grab select-none snap-y md:snap-x snap-mandatory justify-center items-center">
-                {projects
-                    .filter(project => project.selected && project.video)
-                    .map(project => (
-                        <Card
-                            key={project.id}
-                            project={project}
-                            onMouseEnter={() => setHoveredProject(project)}
-                        />
-                    ))}
+        <section className="w-screen">
+            <div className="md:flex hidden ml-20 mb-3 w-screen h-auto md:h-[96vh] overflow-y-auto md:overflow-y-hidden overflow-x-scroll md:overflow-x-scroll z-20 relative top-0 left-0 mt-auto">
+                <div
+                    ref={scrollRef}
+                    onMouseDown={handleMouseDown}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseUp={handleMouseUp}
+                    onMouseMove={handleMouseMove}
+                    className=" flex flex-col md:flex-row md:overflow-x-scroll overflow-y-auto md:overflow-y-hiddenscrollbar-hide cursor-grab select-none snap-y md:snap-x snap-mandatory justify-center items-center">
+                    {projects
+                        .filter(project => project.selected && project.video)
+                        .map(project => (
+                            <Card
+                                key={project.id}
+                                project={project}
+                                onMouseEnter={() => setHoveredProject(project)}
+                            />
+                        ))}
+                </div>
             </div>
 
-            <ul className="flex flex-col gap-2 md:hidden px-4">
-                {projects
-                    .filter(project => project.selected && project.video)
-                    .map(project => (
-                        <li
-                            key={project.id}
-                            className="text-sm text-white cursor-pointer hover:underline"
-                            onClick={() => setHoveredProject(project)}
-                        >
-                            {project.titulo}
-                        </li>
-                    ))}
-            </ul>
+                <ul className="flex flex-col gap-2 md:hidden mt-4 justify-end w-screen h-screen relative top-0 left-0 z-100 px-4 uppercase">
+                    {projects
+                        .filter(project => project.selected && project.video)
+                        .map(project => (
+                            <li
+                                key={project.id}
+                                className="text-sm text-white cursor-pointer hover:underline"
+                                onClick={() => setHoveredProject(project)}
+                            >
+                                {project.titulo}
+                            </li>
+                        ))}
+                </ul>
         </section>
     );
 }
