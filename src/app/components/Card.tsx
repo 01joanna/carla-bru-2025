@@ -11,7 +11,7 @@ export default function Card({ project, onMouseEnter, onMouseLeave }: ProjectCar
         <div
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            className="group relative min-w-[200px] max-w-[250px] h-[100px] shrink-0 snap-center mx-1 mt-auto overflow-hidden rounded-lg"
+            className="group relative min-w-[200px] max-w-[250px] h-[100px] shrink-0 snap-center mx-1 mt-auto overflow-hidden"
         >
             {project.imagenes?.[0] && (
                 <img

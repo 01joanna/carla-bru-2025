@@ -18,12 +18,31 @@ export const fetchProjects = () => async (dispatch: AppDispatch) => {
                 titulo: d.titulo || "",
                 año: d.año || "",
                 artista: d.artista || "",
-                direccion: Array.isArray(d.direccion) ? d.direccion : [],
-                produccion: Array.isArray(d.produccion) ? d.produccion : [],
-                direccionArte: Array.isArray(d.direccionArte) ? d.direccionArte : [],
-                ayudanteArte: Array.isArray(d.ayudanteArte) ? d.ayudanteArte : [],
+                direccion: Array.isArray(d.direccion)
+                    ? d.direccion
+                    : d.direccion
+                        ? [d.direccion]  // si es string, mételo en array
+                        : [],
+
+                produccion: Array.isArray(d.produccion)
+                    ? d.produccion
+                    : d.produccion
+                        ? [d.produccion]
+                        : [],
+
+                direccionArte: Array.isArray(d.direccionArte)
+                    ? d.direccionArte
+                    : d.direccionArte
+                        ? [d.direccionArte]
+                        : [],
+
+                ayudanteArte: Array.isArray(d.ayudanteArte)
+                    ? d.ayudanteArte
+                    : d.ayudanteArte
+                        ? [d.ayudanteArte]
+                        : [],
                 video: d.video || "",
-                categoria: d.categoria || "",
+                categoria: d.categoria || [],
                 descripcion: d.descripcion || "",
                 imagenes: Array.isArray(d.imagenes) ? d.imagenes.map((url: string) => url.trim()) : [],
                 selected: d.selected ?? false,
@@ -56,7 +75,7 @@ export async function editProject(project: Project) {
         direccion: rest.direccion || [],
         produccion: rest.produccion || [],
         video: rest.video || "",
-        categoria: rest.categoria || "",
+        categoria: rest.categoria || [],
         imagenes: Array.isArray(rest.imagenes) ? rest.imagenes : [],
         updatedAt: new Date().toISOString(),
     };
@@ -71,7 +90,7 @@ export async function removeProject(id: string) {
 
 export async function getProjectById(id: string): Promise<Project | null> {
     const docRef = doc(db, "projects", id);
-    const docSnap = await getDoc(docRef); 
+    const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
         const data = docSnap.data();
@@ -82,12 +101,12 @@ export async function getProjectById(id: string): Promise<Project | null> {
             direccion: data.direccion || "",
             produccion: data.produccion || "",
             video: data.video || "",
-            categoria: data.categoria || "",
+            categoria: data.categoria || [],
             imagenes: Array.isArray(data.imagenes)
                 ? data.imagenes.map((url: string) => url.trim())
                 : [],
-                createdAt: data.createdAt instanceof Timestamp ? data.createdAt.toDate().toISOString() : data.createdAt,
-                updatedAt: data.updatedAt instanceof Timestamp ? data.updatedAt.toDate().toISOString() : data.updatedAt,
+            createdAt: data.createdAt instanceof Timestamp ? data.createdAt.toDate().toISOString() : data.createdAt,
+            updatedAt: data.updatedAt instanceof Timestamp ? data.updatedAt.toDate().toISOString() : data.updatedAt,
         } as Project;
     } else {
         return null;

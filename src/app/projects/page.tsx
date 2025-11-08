@@ -14,6 +14,7 @@ export default function ProjectIndex() {
 
     const [selectedCategoria, setSelectedCategoria] = useState<string>("Todos");
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     useEffect(() => {
         dispatch(fetchProjects());
@@ -100,11 +101,14 @@ export default function ProjectIndex() {
                                     </div>
 
                                     <div>
-                                        {selectedProject.direccion && (
-                                            <p>
-                                                <strong>Dirección:</strong> {Array.isArray(selectedProject.direccion) ? selectedProject.direccion.join(', ') : selectedProject.direccion}
-                                            </p>
-                                        )}
+                                        <p>
+                                            <strong>Dirección:</strong>{" "}
+                                            {selectedProject.direccion
+                                                ? Array.isArray(selectedProject.direccion)
+                                                    ? selectedProject.direccion.join(", ")
+                                                    : selectedProject.direccion
+                                                : "—"}
+                                        </p>
                                         {selectedProject.produccion && (
                                             <p>
                                                 <strong>Producción:</strong> {Array.isArray(selectedProject.produccion) ? selectedProject.produccion.join(', ') : selectedProject.produccion}
@@ -122,7 +126,7 @@ export default function ProjectIndex() {
                                         )}
                                     </div>
                                 </div>
-                                {/* Video principal */}
+
                                 {selectedProject.video ? (
                                     <iframe
                                         src={selectedProject.video}
@@ -132,14 +136,14 @@ export default function ProjectIndex() {
                                     <p className="text-gray-400">No hay video disponible</p>
                                 )}
 
-                                {/* Miniaturas de imágenes */}
                                 <div className="flex gap-2 overflow-x-auto mb-4">
                                     {selectedProject.imagenes?.map((img, index) => (
                                         <img
                                             key={index}
                                             src={img.trim()}
                                             alt={`${selectedProject.titulo} ${index + 1}`}
-                                            className="w-[300px] h-auto object-cover"
+                                            className="w-[300px] h-auto object-cover cursor-pointer hover:opacity-70 transition"
+                                            onClick={() => setSelectedImage(img)} // 👉 abre el modal
                                         />
                                     ))}
                                 </div>
@@ -173,35 +177,29 @@ export default function ProjectIndex() {
                                             <div className="absolute bottom-2 left-2 text-white text-sm font-plex uppercase opacity-0 group-hover:opacity-100 transition">
                                                 {project.titulo}
                                             </div>
+
+                                            {uid && (
+                                                <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
+                                                    <Link
+                                                        href={`/admin/edit/${project.id}`}
+                                                        className="text-blue-400 text-xs hover:underline"
+                                                    >
+                                                        Editar
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => handleDelete(project.id!)}
+                                                        className="text-red-400 text-xs hover:underline"
+                                                    >
+                                                        Borrar
+                                                    </button>
+                                                </div>
+                                            )}
                                         </motion.div>
                                     ))}
                             </motion.div>
                         )}
                     </AnimatePresence>
                 </div>
-
-
-                {/* {uid && (
-                                        <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
-                                            <Link
-                                                href={`/admin/edit/${project.id}`}
-                                                className="text-blue-400 text-xs hover:underline"
-                                            >
-                                                Editar
-                                            </Link>
-                                            <button
-                                                onClick={() => handleDelete(project.id!)}
-                                                className="text-red-400 text-xs hover:underline"
-                                            >
-                                                Borrar
-                                            </button>
-                                        </div>
-                                    )}
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                        </motion.div>
-                    </div> */}
 
                 <div className="w-2/6">
                     <ul className="space-y-4 text-xs uppercase">
@@ -249,6 +247,28 @@ export default function ProjectIndex() {
                     </ul>
                 </div>
             </div>
+
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        <motion.img
+                            src={selectedImage}
+                            alt="Imagen ampliada"
+                            className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()} // evita cerrar si clicas la imagen
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }
