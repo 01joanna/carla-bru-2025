@@ -136,14 +136,14 @@ export default function ProjectIndex() {
                                     <p className="text-gray-400">No hay video disponible</p>
                                 )}
 
-                                <div className="flex gap-2 overflow-x-auto mb-4">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                                     {selectedProject.imagenes?.map((img, index) => (
                                         <img
                                             key={index}
                                             src={img.trim()}
                                             alt={`${selectedProject.titulo} ${index + 1}`}
-                                            className="w-[300px] h-auto object-cover cursor-pointer hover:opacity-70 transition"
-                                            onClick={() => setSelectedImage(img)} // 👉 abre el modal
+                                            className="w-full h-auto object-cover cursor-pointer hover:opacity-70 transition rounded-none"
+                                            onClick={() => setSelectedImage(img)}
                                         />
                                     ))}
                                 </div>
@@ -260,11 +260,11 @@ export default function ProjectIndex() {
                         <motion.img
                             src={selectedImage}
                             alt="Imagen ampliada"
-                            className="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
+                            className="max-w-[90%] max-h-[90%] shadow-lg rounded-none"
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.8, opacity: 0 }}
-                            onClick={(e) => e.stopPropagation()} // evita cerrar si clicas la imagen
+                            onClick={(e) => e.stopPropagation()}
                         />
                     </motion.div>
                 )}

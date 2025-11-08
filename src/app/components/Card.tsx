@@ -17,7 +17,7 @@ export default function Card({ project, onMouseEnter, onMouseLeave }: ProjectCar
                 <img
                     src={project.imagenes[0].trim()}
                     alt={project.titulo}
-                    className="object-cover w-full h-full transition-all duration-500 ease-in-out group-hover:opacity-60"
+                    className="object-cover w-full h-full transition-all duration-500 ease-in-out group-hover:opacity-60 rounded-md"
                 />
             )}
 

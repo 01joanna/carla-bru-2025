@@ -8,6 +8,7 @@ export interface Project {
     produccion?: string | string[];
     direccionArte?: string | string[];
     ayudanteArte?: string | string[];
+    descripcion?: string;
     video?: string;
     imagenes: string[];
     createdAt?: string;

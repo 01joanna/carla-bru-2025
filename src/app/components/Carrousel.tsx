@@ -50,15 +50,14 @@ export default function Carrousel({ setHoveredProject }: CarrouselProps) {
     };
 
     return (
-        <section className="w-screen h-[30vh] overflow-y-hidden overflow-x-scroll z-20 relative top-0 left-0 mt-auto pt-40">
+        <section className="md:flex hidden ml-20 mb-3 w-screen h-auto md:h-[30vh] overflow-y-auto md:overflow-y-hidden overflow-x-scroll md:overflow-x-scroll z-20 relative top-0 left-0 mt-auto">
             <div
                 ref={scrollRef}
                 onMouseDown={handleMouseDown}
                 onMouseLeave={handleMouseLeave}
                 onMouseUp={handleMouseUp}
                 onMouseMove={handleMouseMove}
-                className="flex overflow-x-scroll scrollbar-hide cursor-grab select-none snap-x snap-mandatory justify-center items-center"
-            >
+                className=" flex flex-col md:flex-row md:overflow-x-scroll overflow-y-auto md:overflow-y-hiddenscrollbar-hide cursor-grab select-none snap-y md:snap-x snap-mandatory justify-center items-center">
                 {projects
                     .filter(project => project.selected && project.video)
                     .map(project => (
@@ -69,6 +68,20 @@ export default function Carrousel({ setHoveredProject }: CarrouselProps) {
                         />
                     ))}
             </div>
+
+            <ul className="flex flex-col gap-2 md:hidden px-4">
+                {projects
+                    .filter(project => project.selected && project.video)
+                    .map(project => (
+                        <li
+                            key={project.id}
+                            className="text-sm text-white cursor-pointer hover:underline"
+                            onClick={() => setHoveredProject(project)}
+                        >
+                            {project.titulo}
+                        </li>
+                    ))}
+            </ul>
         </section>
     );
 }
